@@ -1,0 +1,27 @@
+{
+    "npmClient": "yarn",
+    "useWorkspaces": true,
+    "version": "0.3.3",
+    "changelog": {
+        "labels": {
+            "tag: new feature": ":rocket: New Feature",
+            "tag: breaking change": ":boom: Breaking Change",
+            "tag: bug fix": ":bug: Bug Fix",
+            "tag: enhancement": ":nail_care: Enhancement",
+            "tag: documentation": ":memo: Documentation",
+            "tag: internal": ":house: Internal"
+        },
+        "cacheDir": ".changelog"
+    },
+    "packages": [
+        "packages/*"
+    ],
+    "command": {
+        "run": {
+            "stream": true
+        },
+        "publish": {
+            "registry": "https://repo.yumc.pw/repository/npm-hosted/"
+        }
+    }
+}

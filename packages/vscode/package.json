@@ -1,0 +1,76 @@
+{
+    "name": "@dayu/vscode",
+    "displayName": "vscode",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.35.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.helloWorld"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "dayu-explorer",
+                    "title": "Dayu Explorer",
+                    "icon": "src/images/logo.svg"
+                }
+            ]
+        },
+        "views": {
+            "dayu-explorer": [
+                {
+                    "id": "docker-explorer",
+                    "name": "Docker"
+                },
+                {
+                    "id": "openfaas-explorer",
+                    "name": "OpenFaaS"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "dayu.container.logs",
+                "title": "View Container Logs",
+                "icon": {
+                    "dark": "src/images/browser.svg"
+                }
+            }
+        ],
+        "menus": {
+            "view/item/context": [
+                {
+                    "command": "dayu.container.logs",
+                    "when": "view == docker-explorer && viewItem =~ /.*\"type\":\"CONTAINER\".*/",
+                    "group": "inline"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "yarn run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ../../node_modules/vscode/bin/install",
+        "test": "yarn run compile && node ./node_modules/vscode/bin/test"
+    },
+    "dependencies": {
+        "@dayu/docker-api": "^0.0.1",
+        "@dayu/faas": "^0.0.1",
+        "axios": "^0.19.0"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^10.12.21",
+        "tslint": "^5.12.1",
+        "typescript": "^3.3.1",
+        "vscode": "^1.1.28"
+    }
+}

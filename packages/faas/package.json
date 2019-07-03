@@ -1,0 +1,27 @@
+{
+    "name": "@dayu/faas",
+    "version": "0.0.1",
+    "description": "> TODO: description",
+    "author": "MiaoWoo <admin@yumc.pw>",
+    "homepage": "https://github.com/circlecloud/dayu",
+    "license": "ISC",
+    "main": "dist/index.js",
+    "publishConfig": {
+        "registry": "https://repo.yumc.pw/repository/npm-hosted/"
+    },
+    "scripts": {
+        "dev": "npx ts-node-dev src/index.ts",
+        "clean": "rimraf dist",
+        "watch": "npx tsc --watch",
+        "build": "yarn clean && npx tsc",
+        "test": "echo \"Error: run tests from root\" && exit 1"
+    },
+    "dependencies": {
+        "axios": "^0.19.0"
+    },
+    "devDependencies": {
+        "rimraf": "^2.6.3",
+        "ts-node-dev": "^1.0.0-pre.40",
+        "typescript": "^3.5.2"
+    }
+}

@@ -1,0 +1,38 @@
+@url=https://faas.n.yumc.pw
+
+### System
+##### Info
+GET {{url}}/info
+
+##### Version
+GET {{url}}/version
+
+##### Events
+GET {{url}}/events
+
+### Swarm
+@swarm={{url}}/swarm
+
+##### Swarm Info
+GET {{swarm}}/info
+
+### Swarm Init
+POST {{swarm}}/init
+
+{}
+
+### Stack
+@stack={{url}}/stack
+##### Stack List
+GET {{stack}}/list
+
+##### Stack Remove
+POST {{stack}}/develop/remove
+
+
+### Container
+@container={{url}}/container
+
+##### Container logs
+@id=6365041d2e52c5896dd14a5450920e482dddc33e6addaa07fab413bcda78d723
+GET {{container}}/{{id}}/logs

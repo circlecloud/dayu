@@ -1,0 +1,36 @@
+@url=https://dcli.yumc.pw/v1.39
+
+### Info
+GET {{url}}/info
+
+### Version
+GET {{url}}/version
+
+### Swarm
+GET {{url}}/swarm
+
+### Swarm Init
+POST {{url}}/swarm/init
+
+{}
+
+### Node
+GET {{url}}/nodes
+
+### Container
+@cid=87514be54f3b9a34ac8ea74097d2053d73c7c535f34d3446bcbe16d6f2ba0f0f
+@container={{url}}/containers
+##### List
+GET {{container}}/json?filters={"label":{"com.docker.stack.namespace%3Dmonitor":false}}
+##### In
+GET {{container}}/{{cid}}/json
+
+### Services
+GET {{url}}/services?filters={"mode":["global"]}
+
+### Create Services
+POST {{url}}/services/create
+
+{
+    
+}
