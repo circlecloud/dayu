@@ -17,7 +17,8 @@ enum Type {
     NODE = "NODE"
 }
 
-let TREE_LIST = [Type.NODES, Type.CONTAINERS, Type.SERVICES, Type.NETWORKS]
+let TREE_LIST = [Type.NODES, Type.CONTAINERS, Type.SERVICES, Type.STACKS, Type.NETWORKS]
+const STACK_LABEL = 'com.docker.stack.namespace';
 
 export class DockerProvider extends BaseProvider<vscode.TreeItem> {
     onDidChangeTreeData?: vscode.Event<vscode.TreeItem | null | undefined> | undefined;
@@ -117,9 +118,37 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
                         tooltip: JSON.stringify(n, undefined, 2)
                     })
                 })
-            case Type.CONTAINER:
-
-                break;
+            case Type.STACKS:
+                let stacks: { [key: string]: string[] } = {};
+                let svrs = await docker.service.list();
+                for (const service of svrs) {
+                    let stackName = service.Spec.Labels[STACK_LABEL]
+                    if (stackName) {
+                        let stack = stacks[stackName] || [];
+                        stack.push(service.Spec.Name);
+                        stacks[stackName] = stack;
+                    }
+                }
+                return Object.keys(stacks).map(stack => {
+                    return this.createTreeItem({
+                        label: stack,
+                        context: {
+                            type: Type.STACK,
+                            data: {
+                                name: stack,
+                                list: stacks[stack]
+                            }
+                        },
+                        state: vscode.TreeItemCollapsibleState.Collapsed
+                    })
+                })
+            case Type.STACK:
+                let list: string[] = value.data.list;
+                return list.map(s => {
+                    return this.createTreeItem({
+                        label: s
+                    })
+                })
             default:
         }
         return [];

@@ -1,4 +1,4 @@
-@url=https://faas.n.yumc.pw
+@url=https://dayu.n.yumc.pw
 
 ### System
 ##### Info
@@ -36,3 +36,9 @@ POST {{stack}}/develop/remove
 ##### Container logs
 @id=6365041d2e52c5896dd14a5450920e482dddc33e6addaa07fab413bcda78d723
 GET {{container}}/{{id}}/logs
+
+### Dashboard
+@dashboard={{url}}/dashboard
+
+#####
+GET {{dashboard}}

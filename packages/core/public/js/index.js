@@ -34,10 +34,10 @@ socket.on('connect', () => {
             case "container":
                 socket.emit('logs', {
                     id: query.data,
-                    since: Date.now() / 1000 - 60 * 15,
-                    until: Date.now() / 1000,
-                    stderr: false,
-                    tail: "all"
+                    // since: Date.now() / 1000 - 60 * 15,
+                    // until: Date.now() / 1000,
+                    // stderr: false,
+                    tail: "200"
                 })
                 break;
             default:

@@ -11,7 +11,7 @@
     },
     "scripts": {
         "dev": "npx ts-node-dev --respawn --prefer-ts --debounce=1500 --ignore-watch=[] --project tsconfig.json",
-        "debug": "npx nodemon -V --watch ../../node_modules --delay 1500ms dist/index.js",
+        "debug": "npx nodemon dist/index.js",
         "clean": "rimraf dist",
         "watch": "npx tsc --watch",
         "build": "yarn clean && npx tsc",
@@ -29,5 +29,18 @@
         "rimraf": "^2.6.3",
         "ts-node-dev": "^1.0.0-pre.40",
         "typescript": "^3.5.2"
+    },
+    "nodemonConfig": {
+        "verbose": true,
+        "ignore": [
+            ".git",
+            "public"
+        ],
+        "watch": [
+            "./",
+            "../../node_modules"
+        ],
+        "delay": "1500",
+        "ext": "js,json"
     }
 }
