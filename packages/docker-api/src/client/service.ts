@@ -6,4 +6,7 @@ export namespace service {
     export async function list(filters?: opts.service.ListOpts) {
         return await api.get<types.service.Service[]>('/services', filters);
     }
+    export async function create() {
+        
+    }
 }

@@ -1,4 +1,4 @@
-@url=https://dcli.yumc.pw/v1.39
+@url=https://dscli.miaowoo.cc/v1.39
 
 ### Info
 GET {{url}}/info
@@ -25,12 +25,79 @@ GET {{container}}/json?filters={"label":{"com.docker.stack.namespace%3Dmonitor":
 ##### In
 GET {{container}}/{{cid}}/json
 
-### Services
-GET {{url}}/services?filters={"mode":["global"]}
+### Services ?filters={"mode":["global"]}
+GET {{url}}/services
 
-### Create Services
+##### Create Services
 POST {{url}}/services/create
 
 {
-    
+    "Name": "analysis_tera-200706",
+    "Labels": {
+        "com.docker.stack.image": "miaowoo/tera:frp",
+        "com.docker.stack.namespace": "analysis"
+    },
+    "TaskTemplate": {
+        "ContainerSpec": {
+            "Image": "miaowoo/tera:frp",
+            "Labels": {
+                "com.docker.stack.namespace": "analysis"
+            },
+            "Env": [
+                "FRP_NAME=tera-200706",
+                "FRP_TOKEN=Jtb2hwwfor",
+                "FRP_USER=MiaoWoo",
+                "PASSWD=Jtb2hwwfor",
+                "TERA_COUNT_MINING_CPU=8",
+                "TERA_NET_WORK_MODE_IP=60.12.241.181",
+                "TERA_NET_WORK_MODE_PORT=30019",
+                "TERA_REST_START_COUNT=100000",
+                "TERA_WALLET_MINING_ACCOUNT=200706",
+                "TERA_WATCHDOG_BADACCOUNT=2"
+            ],
+            "Privileges": {
+                "CredentialSpec": null,
+                "SELinuxContext": null
+            },
+            "Init": true,
+            "Mounts": [
+                {
+                    "Type": "bind",
+                    "Source": "/home/app/tera/DATA",
+                    "Target": "/app/DATA"
+                }
+            ],
+            "Isolation": "default"
+        },
+        "Resources": {
+            "Limits": {
+                "NanoCPUs": 9000000000,
+                "MemoryBytes": 38654705664
+            },
+            "Reservations": {
+                "NanoCPUs": 8000000000,
+                "MemoryBytes": 34359738368
+            }
+        },
+        "Placement": {
+            "Constraints": [
+                "node.hostname == manager1"
+            ]
+        },
+        "ForceUpdate": 0,
+        "Runtime": "container"
+    },
+    "Mode": {
+        "Replicated": {
+            "Replicas": 1
+        }
+    },
+    "EndpointSpec": {
+        "Mode": "vip"
+    }
 }
+
+### Delete Services
+@id=t6yn64q53q1dmgzdr8td8crbl
+DELETE {{url}}/services/{{id}}
+

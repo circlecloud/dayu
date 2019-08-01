@@ -3,7 +3,8 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 //process.env.DOCKER_HOST = 'https://ndcli.yumc.pw'
-process.env.DOCKER_HOST = '/var/run/docker.sock'
+// process.env.DOCKER_HOST = '/var/run/docker.sock'
+process.env.DOCKER_HOST = 'https://dscli.miaowoo.cc'
 
 let server = new CcServerBoot();
 

@@ -11,6 +11,10 @@ export async function post<T>(path: string, data?: object): Promise<T> {
     return await handle<T>("POST", path, { data });
 }
 
+export async function del<T>(path: string, data?: object): Promise<T> {
+    return await handle<T>("DELETE", path, { params: data });
+}
+
 export async function stream<T = http.ServerResponse>(path: string, data?: object): Promise<T> {
     return await handle<T>("GET", path, { params: data, responseType: "stream" });
 }
@@ -64,8 +68,7 @@ function init() {
     const instanceConfig: AxiosRequestConfig = {
         headers: {
             'Content-Type': 'application/json'
-        },
-        timeout: 5000
+        }
     }
     if (process.env.DOCKER_HOST.startsWith("/")) {
         instanceConfig.socketPath = process.env.DOCKER_HOST

@@ -10,13 +10,7 @@ export namespace system {
         return await api.get<types.system.Version>('/version');
     }
 
-    export async function events(cb: (events: object) => void) {
-        let stream = await api.stream<any>('/events');
-        stream.on('data', (chunk: ArrayBuffer) => {
-            cb(JSON.parse(Buffer.from(chunk).toString()))
-        })
-        stream.on('end', () => {
-            cb(undefined);
-        })
+    export async function events() {
+        return await api.stream('/events');
     }
 }

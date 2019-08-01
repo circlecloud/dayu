@@ -22,17 +22,30 @@ location.search.substring(1).split("&").forEach(q => {
 
 console.log(query);
 
-var socket = io('/container', {
+var system = io('/', {
     path: '/ws',
     transports: ['websocket']
 });
-socket.on('connect', () => {
+
+system.on('connect', () => {
+    system.emit('events', {})
+})
+
+system.on('message', data => {
+    term.write(data.toString() + '\r\n');
+});
+
+var container = io('/container', {
+    path: '/ws',
+    transports: ['websocket']
+});
+container.on('connect', () => {
     term.writeln('connect')
     if (query.action) {
         term.writeln(`Recover Action: ${query.action} Data: ${query.data}`)
         switch (query.action) {
             case "container":
-                socket.emit('logs', {
+                container.emit('logs', {
                     id: query.data,
                     // since: Date.now() / 1000 - 60 * 15,
                     // until: Date.now() / 1000,
@@ -51,7 +64,7 @@ term.on('data', async data => {
     term.write(data);
     if (data == '\r') {
         term.write('\n');
-        socket.emit('logs', {
+        container.emit('logs', {
             id: command
         })
         command = '';
@@ -59,10 +72,10 @@ term.on('data', async data => {
         command += data;
     }
 });
-socket.on('message', data => {
+container.on('message', data => {
     term.write(data.toString() + '\r\n');
 });
-socket.on('disconnect', () => {
+container.on('disconnect', () => {
     term.reset();
     term.writeln('disconnect');
 });

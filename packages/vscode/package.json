@@ -2,6 +2,7 @@
     "name": "@dayu/vscode",
     "displayName": "vscode",
     "description": "",
+    "publisher": "MiaoWoo",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.35.0"
