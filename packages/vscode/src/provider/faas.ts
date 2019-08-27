@@ -1,6 +1,6 @@
-import * as vscode from 'vscode'
-import * as faas from '@dayu/faas'
-import { BaseProvider, ItemContextValue } from './base'
+import * as vscode from 'vscode';
+import * as faas from '@dayu/faas';
+import { BaseProvider, ItemContextValue } from './base';
 
 enum Type {
     ROOT = "ROOT",
@@ -10,10 +10,10 @@ export class OpenFaasProvider extends BaseProvider<vscode.TreeItem> {
     onDidChangeTreeData?: vscode.Event<vscode.TreeItem>;
 
     constructor(context: vscode.ExtensionContext) {
-        super()
+        super();
         context.subscriptions.push(
             vscode.window.registerTreeDataProvider('openfaas-explorer', this)
-        )
+        );
     }
 
     getTreeItem(element: vscode.TreeItem): vscode.TreeItem | Promise<vscode.TreeItem> {
@@ -29,7 +29,7 @@ export class OpenFaasProvider extends BaseProvider<vscode.TreeItem> {
                     type: Type.ROOT
                 },
                 icon: "logo"
-            })]
+            })];
         }
         let value: ItemContextValue = JSON.parse(element.contextValue);
         switch (value.type) {
@@ -39,7 +39,7 @@ export class OpenFaasProvider extends BaseProvider<vscode.TreeItem> {
                     return this.createTreeItem({
                         label: f.name,
                         tooltip: JSON.stringify(f, undefined, 2)
-                    })
+                    });
                 });
             default:
                 return [];
