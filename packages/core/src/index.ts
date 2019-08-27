@@ -19,4 +19,4 @@ for (let file of list) {
     }
 }
 
-server.static().build().start();
+server.static().build().start(81);

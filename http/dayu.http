@@ -1,4 +1,4 @@
-@url=https://dayu.n.yumc.pw
+@url=https://dayu-api.miaowoo.cc
 
 ### System
 ##### Info
@@ -25,9 +25,20 @@ POST {{swarm}}/init
 @stack={{url}}/stack
 ##### Stack List
 GET {{stack}}/list
-
+##### Stack Info
+GET {{stack}}/faas
 ##### Stack Remove
 POST {{stack}}/develop/remove
+
+
+### Service
+@service={{url}}/service
+##### Service List
+GET {{service}}/list
+##### Service Info
+GET {{service}}/3gchxsmjld0fuex216w56jl5g
+##### Service Remove
+POST {{service}}/develop/remove
 
 
 ### Container

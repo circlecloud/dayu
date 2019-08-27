@@ -8,16 +8,22 @@ export namespace container {
         return await api.get<types.container.Container[]>('/containers/json', filters)
     }
 
-    export async function info(id: string, query: { size: boolean } = { size: false }) {
+    export async function inspect(id: string, query: { size: boolean } = { size: false }) {
         return await api.get<types.container.ContainerJSON>(`/containers/${id}/json`, query);
     }
 
+    export function prune() {
+        return api.post<types.container.ContainerPrune>('/containers/prune');
+    }
+
     export async function logs(id: string, opts: opts.container.LogsOpts = {}): Promise<http.ServerResponse> {
-        return await api.stream(`/containers/${id}/logs`, Object.assign({
+        let data = {
             follow: true,
             stdout: true,
             stderr: true,
-            tail: 10
-        }, opts));
+            tail: 10,
+            ...opts
+        }
+        return await api.stream(`/containers/${id}/logs`, data);
     }
 }

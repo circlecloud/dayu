@@ -7,6 +7,9 @@ export namespace service {
         return await api.get<types.service.Service[]>('/services', filters);
     }
     export async function create() {
-        
+
+    }
+    export async function inspect(id: string, query: { insertDefaults: boolean } = { insertDefaults: false }) {
+        return await api.get<any>(`/services/${id}`, query);
     }
 }

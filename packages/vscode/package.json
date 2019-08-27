@@ -1,7 +1,7 @@
 {
     "name": "@dayu/vscode",
     "displayName": "vscode",
-    "description": "",
+    "description": "Dayu VsCode Plugin",
     "publisher": "MiaoWoo",
     "version": "0.0.1",
     "engines": {
@@ -56,6 +56,7 @@
         }
     },
     "scripts": {
+        "package": "vsce package",
         "vscode:prepublish": "yarn run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",

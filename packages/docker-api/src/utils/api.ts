@@ -23,9 +23,9 @@ async function handle<T>(method: Method, path: string, reqConfig?: AxiosRequestC
     let config: AxiosRequestConfig = {
         method,
         url: path,
+        ...reqConfig
     };
     let startTime = Date.now();
-    Object.assign(config, reqConfig)
     let response: AxiosResponse;
     try {
         response = await api.request(config);
@@ -57,10 +57,6 @@ RESPONSE BODY   : ${toString.call(response.data.pipe) === "[object Function]" ? 
 HANDLE   TIME   : ${Date.now() - startTime}ms
 =======================================`);
         }
-        // console.log(`${method} ${path} HTTP/1.1
-        // ${config.data ? JSON.stringify(config.data, null, 2) + '\n' : ''}
-        // HTTP/1.1 ${response.status} ${response.statusText}
-        // ${config.responseType != 'stream' ? JSON.stringify(response.data, null, 2) : config.responseType}`);
     }
 }
 

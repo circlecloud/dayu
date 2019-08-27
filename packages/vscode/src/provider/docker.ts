@@ -28,7 +28,7 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
         context.subscriptions.push(
             vscode.commands.registerCommand('dayu.container.logs', (item: vscode.TreeItem) => {
                 let value: ItemContextValue = JSON.parse(item.contextValue);
-                let url = `https://faas.n.yumc.pw?action=container&data=${value.data.id}`;
+                let url = `https://dayu-api.miaowoo.cc?action=container&data=${value.data.id}`;
                 return vscode.commands.executeCommand("mini-browser.openUrl", url);
             }),
             vscode.window.registerTreeDataProvider('docker-explorer', this)

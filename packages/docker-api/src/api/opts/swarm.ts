@@ -3,6 +3,18 @@ import { Labels } from '../common'
 export declare namespace swarm {
     type NodeAvailability = string;
 
+    export interface UnlockOpts {
+        UnlockKey: string;
+    }
+
+    export interface JoinOpts {
+        ListenAddr?: string;
+        AdvertiseAddr?: string;
+        DataPathAddr?: string;
+        RemoteAddrs?: string[];
+        JoinToken?: string;
+    }
+
     export interface InitOpts {
         ListenAddr?: string;
         AdvertiseAddr?: string;

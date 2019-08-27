@@ -7,7 +7,7 @@
     "license": "MIT",
     "scripts": {
         "clean": "npx lerna run clean",
-        "watch": "npx lerna run watch --concurrency 10",
+        "watch": "npx lerna run watch --parallel",
         "build": "npx lerna run build",
         "lp": "npx lerna publish"
     },

@@ -297,4 +297,9 @@ export declare namespace container {
         NetworkSettings: SummaryNetworkSettings;
         Mounts: Mount[];
     }
+
+    export interface ContainerPrune {
+        ContainersDeleted: string[];
+        SpaceReclaimed: number;
+    }
 }

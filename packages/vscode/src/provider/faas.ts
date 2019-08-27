@@ -35,7 +35,7 @@ export class OpenFaasProvider extends BaseProvider<vscode.TreeItem> {
         switch (value.type) {
             case Type.ROOT:
                 let funcs = await faas.getFunctions();
-                return funcs.map(f => {
+                return funcs.map((f: any) => {
                     return this.createTreeItem({
                         label: f.name,
                         tooltip: JSON.stringify(f, undefined, 2)

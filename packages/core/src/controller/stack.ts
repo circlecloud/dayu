@@ -6,18 +6,25 @@ const STACK_LABEL = 'com.docker.stack.namespace';
 @controller('/stack')
 class StackController {
     @httpGet('/list')
-    public async list() {
+    public async list(): Promise<any> {
         let stacks: { [key: string]: string[] } = {};
+        let result = [];
         let services = await docker.service.list();
         for (const service of services) {
             let stackName = service.Spec.Labels[STACK_LABEL]
             if (stackName) {
-                let stack = stacks[stackName] || [];
+                let stack = stacks[stackName];
+                if (!stack) {
+                    result.push({
+                        name: stackName,
+                        services: stack = []
+                    })
+                    stacks[stackName] = stack;
+                }
                 stack.push(service.Spec.Name);
-                stacks[stackName] = stack;
             }
         }
-        return stacks;
+        return result;
     }
 
     @httpGet('/:stack')
@@ -31,11 +38,9 @@ class StackController {
         }
         let services = await docker.service.list(filterOpt)
         let networks = await docker.network.list(filterOpt)
-        let containers = await docker.container.list(filterOpt);
         return {
             services: services.map(service => service.Spec.Name),
             networks: networks.map(network => network.Name),
-            containers: containers.map(container => container.Names[0].substring(1))
         }
     }
 }
