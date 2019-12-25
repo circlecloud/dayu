@@ -6,6 +6,7 @@
         "module": "commonjs",
         "sourceMap": true,
         "declaration": true,
+        "declarationMap": true,
         "noImplicitAny": true,
         "allowUnreachableCode": true,
         "experimentalDecorators": true,

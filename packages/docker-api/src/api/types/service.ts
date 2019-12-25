@@ -181,6 +181,13 @@ export declare namespace service {
         RollbackConfig: RollbackConfig;
     }
 
+    export interface UpdateStatus {
+        State: string;
+        StartedAt: string;
+        CompletedAt: string;
+        Message: string;
+    }
+
     export interface Service {
         ID: string;
         Version: Version;
@@ -189,7 +196,7 @@ export declare namespace service {
         Spec: Spec;
         Endpoint: Endpoint;
         PreviousSpec: PreviousSpec;
+        UpdateStatus: UpdateStatus;
     }
-
 }
 

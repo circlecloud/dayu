@@ -1,17 +1,17 @@
-import { controller, httpGet, httpPost, requestParam } from 'inversify-express-utils';
+import { controller, get, post, requestParam } from '@cc-server/binding';
 import * as docker from '@dayu/docker-api'
 
-const STACK_LABEL = 'com.docker.stack.namespace';
+const GROUP_LABEL = 'pw.yumc.group.name'
 
-@controller('/stack')
-class StackController {
-    @httpGet('/list')
+@controller('/group')
+class GroupController {
+    @get('/list')
     public async list(): Promise<any> {
         let stacks: { [key: string]: string[] } = {};
         let result = [];
         let services = await docker.service.list();
         for (const service of services) {
-            let stackName = service.Spec.Labels[STACK_LABEL]
+            let stackName = service.Spec.Labels[GROUP_LABEL]
             if (stackName) {
                 let stack = stacks[stackName];
                 if (!stack) {
@@ -27,10 +27,10 @@ class StackController {
         return result;
     }
 
-    @httpGet('/:stack')
-    public async details(@requestParam('stack') stack: string) {
+    @get('/:name')
+    public async details(@requestParam('name') stack: string) {
         let filter: any = {}
-        filter[`${STACK_LABEL}=${stack}`] = true
+        filter[`${GROUP_LABEL}=${stack}`] = true
         let filterOpt = {
             filters: JSON.stringify({
                 "label": filter

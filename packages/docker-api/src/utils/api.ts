@@ -19,6 +19,13 @@ export async function stream<T = http.ServerResponse>(path: string, data?: objec
     return await handle<T>("GET", path, { params: data, responseType: "stream" });
 }
 
+export function getUri(path: string, data?: object) {
+    return api.getUri({
+        url: path,
+        params: data
+    })
+}
+
 async function handle<T>(method: Method, path: string, reqConfig?: AxiosRequestConfig): Promise<T> {
     let config: AxiosRequestConfig = {
         method,

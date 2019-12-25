@@ -11,7 +11,8 @@
         "Other"
     ],
     "activationEvents": [
-        "*"
+        "onView:docker-explorer",
+        "onView:openfaas-explorer"
     ],
     "main": "./dist/extension.js",
     "contributes": {
@@ -60,8 +61,8 @@
         "vscode:prepublish": "yarn run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ../../../node_modules/vscode/bin/install",
-        "test": "yarn run compile && node ../../../node_modules/vscode/bin/test"
+        "postinstall": "node ../../node_modules/vscode/bin/install",
+        "test": "yarn run compile && node ../../node_modules/vscode/bin/test"
     },
     "dependencies": {
         "@dayu/docker-api": "^0.0.1",
