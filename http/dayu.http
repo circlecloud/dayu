@@ -39,6 +39,8 @@ GET {{service}}/list
 GET {{service}}/3gchxsmjld0fuex216w56jl5g
 ##### Service Remove
 POST {{service}}/develop/remove
+#####
+POST {{service}}/swirl_swirl/restart
 
 
 ### Container

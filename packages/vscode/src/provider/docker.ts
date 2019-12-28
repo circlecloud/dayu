@@ -28,7 +28,12 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
         context.subscriptions.push(
             vscode.commands.registerCommand('dayu.container.logs', (item: vscode.TreeItem) => {
                 let value: ItemContextValue = JSON.parse(item.contextValue);
-                let url = `https://dayu-api.miaowoo.cc?action=container&data=${value.data.id}`;
+                let url = `https://dayu-api.miaowoo.cc/logs/?action=container&data=${value.data.id}`;
+                return vscode.commands.executeCommand("mini-browser.openUrl", url);
+            }),
+            vscode.commands.registerCommand('dayu.service.logs', (item: vscode.TreeItem) => {
+                let value: ItemContextValue = JSON.parse(item.contextValue);
+                let url = `https://dayu-api.miaowoo.cc/logs/?action=service&data=${value.data.id}`;
                 return vscode.commands.executeCommand("mini-browser.openUrl", url);
             }),
             vscode.window.registerTreeDataProvider('docker-explorer', this)
@@ -146,7 +151,7 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
                 let list: string[] = value.data.list;
                 return list.map(s => {
                     return this.createTreeItem({
-                        label: s
+                        label: s.split('_')[1]
                     })
                 })
             default:

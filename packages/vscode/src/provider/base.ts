@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 
-export class CteateItemOpt {
+export class CreateItemOpt {
     label: string;
     context?: ItemContextValue;
     state?: vscode.TreeItemCollapsibleState = vscode.TreeItemCollapsibleState.None;
@@ -18,7 +18,7 @@ export abstract class BaseProvider<T> implements vscode.TreeDataProvider<T> {
     abstract getTreeItem(element: T): vscode.TreeItem | Thenable<vscode.TreeItem>;
     abstract getChildren(element?: T | undefined): vscode.ProviderResult<T[]>;
 
-    createTreeItem(opts: CteateItemOpt) {
+    createTreeItem(opts: CreateItemOpt) {
         let item = new vscode.TreeItem(opts.label, opts.state);
         item.contextValue = JSON.stringify(opts.context);
         if (opts.icon) { item.iconPath = `src/images/${opts.icon}.svg` }

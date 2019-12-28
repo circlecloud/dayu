@@ -1,21 +1,22 @@
-import { controller, post, get, requestParam, queryParam } from '@cc-server/binding';
 import * as docker from '@dayu/docker-api'
+import { namespace, listener, interfaces, io, Message } from '@cc-server/ws'
+import { controller, post, get, requestParam, queryParam } from '@cc-server/binding';
 
 @controller('/service')
 class ServiceController {
     @get('/list')
     public async list(@queryParam('page') page: number, @queryParam('perPage') perPage: number, ) {
         let services = await docker.service.list();
+        let rows = services.map(s => ({
+            "service-name": s.Spec.Name,
+            image: s.Spec.TaskTemplate.ContainerSpec.Image.split('@')[0],
+            updated_at: s.UpdatedAt,
+            mode: s.Spec.Mode,
+            update_status: s.UpdateStatus
+        }))
         return {
             status: 0,
-            msg: '',
-            data: services.map(s => ({
-                "service-name": s.Spec.Name,
-                image: s.Spec.TaskTemplate.ContainerSpec.Image.split('@')[0],
-                updated_at: s.UpdatedAt,
-                mode: s.Spec.Mode,
-                update_status: s.UpdateStatus
-            }))
+            data: { rows }
         };
     }
 
@@ -70,6 +71,23 @@ class ServiceController {
                 networks: service.Spec.TaskTemplate.Networks ?? [],
                 raw: JSON.stringify(service)
             }
+        }
+    }
+}
+
+@namespace("/service")
+class ServiceNamespace extends interfaces.Namespace {
+    @listener()
+    async logs(socket: io.Socket, data: any) {
+        try {
+            let stream = await docker.service.logs(data.id, data);
+            this.defer(socket, () => stream.connection.destroy());
+            stream.on('data', (chunk: ArrayBuffer) => {
+                let log = Buffer.from(chunk.slice(8, chunk.byteLength - 1)).toString();
+                socket.send(log);
+            })
+        } catch (ex) {
+            return new Message(ex.message);
         }
     }
 }
