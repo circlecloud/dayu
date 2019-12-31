@@ -46,4 +46,9 @@ class StackController {
             networks: networks.map(network => network.Name),
         }
     }
+
+    @post('/create')
+    public async create() {
+        
+    }
 }

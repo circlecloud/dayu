@@ -1,4 +1,4 @@
-import { Labels, Options, StringMap } from '../common'
+import { Labels, Options, StringMap, Annotations } from '../common'
 
 export declare namespace network {
     export interface Config {
@@ -48,8 +48,7 @@ export declare namespace network {
         Tasks: Task;
     }
 
-    export interface NetworkResource {
-        Name: string;
+    export interface NetworkResource extends Annotations {
         Id: string;
         Created: string;
         Scope: string;
@@ -63,7 +62,6 @@ export declare namespace network {
         ConfigOnly: boolean;
         Containers?: Containers;
         Options: Options;
-        Labels: Labels;
         Peers: network.PeerInfo[];
         Services: network.ServiceInfo[];
     }

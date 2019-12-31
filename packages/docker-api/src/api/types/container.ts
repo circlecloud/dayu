@@ -302,4 +302,36 @@ export declare namespace container {
         ContainersDeleted: string[];
         SpaceReclaimed: number;
     }
+
+    export namespace exec {
+        export interface CreateResult {
+            Id: string;
+        }
+        export interface StartResult {
+
+        }
+        export interface ResizeResult {
+
+        }
+        export interface ProcessConfig {
+            arguments: string[];
+            entrypoint: string;
+            privileged: boolean;
+            tty: boolean;
+            user: string;
+        }
+        export interface ExecJson {
+            CanRemove: boolean;
+            ContainerID: string;
+            DetachKeys: string;
+            ExitCode: number;
+            ID: string;
+            OpenStderr: boolean;
+            OpenStdin: boolean;
+            OpenStdout: boolean;
+            ProcessConfig: ProcessConfig;
+            Running: boolean;
+            Pid: number;
+        }
+    }
 }

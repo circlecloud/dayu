@@ -66,17 +66,5 @@ switch (query.action) {
 }
 
 term.on('data', async data => {
-    if (data == '\t') {
-        return;
-    }
-    term.write(data);
-    if (data == '\r') {
-        term.write('\n');
-        container.emit('logs', {
-            id: command
-        })
-        command = '';
-    } else {
-        command += data;
-    }
+
 });

@@ -1,11 +1,14 @@
 import * as api from '../utils/api';
 import * as opts from '../api/opts';
 import * as types from '../api/types';
+import * as filterUtil from '../api/opts/filter'
 import * as http from 'http'
 
 export namespace service {
-    export async function list(filters?: opts.service.ListOpts) {
-        return await api.get<types.service.Service[]>('/services', filters);
+    export async function list(filter?: opts.service.FilterOpt) {
+        return await api.get<types.service.Service[]>('/services', {
+            filters: filterUtil.toJSON(filter)
+        });
     }
     export async function create() {
 

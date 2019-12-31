@@ -1,5 +1,6 @@
 export * from './swarm'
 export * from './common'
+export * from './config'
 export * from './network'
 export * from './service'
 export * from './container'

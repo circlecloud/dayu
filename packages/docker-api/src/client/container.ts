@@ -26,4 +26,29 @@ export namespace container {
         }
         return await api.stream(`/containers/${id}/logs`, data);
     }
+
+    export namespace exec {
+        export function create(id: string, opts: opts.container.exec.Create = {}): Promise<types.container.exec.CreateResult> {
+            let request = {
+                AttachStdin: true,
+                AttachStdout: true,
+                AttachStderr: true,
+                DetachKeys: 'ctrl-d',
+                Tty: true,
+                Cmd: '/bin/sh',
+                ...opts
+            }
+            request.AttachStderr = true
+            return api.post<types.container.exec.CreateResult>(`/containers/${id}/exec`, request)
+        }
+        export function start(id: string, opts: opts.container.exec.Start = {}) {
+            return api.post<types.container.exec.StartResult>(`/exec/${id}/start`, opts)
+        }
+        export function resize(id: string, opts: opts.container.exec.Resize = {}) {
+            return api.post<types.container.exec.ResizeResult>(`/exec/${id}/resize`, opts)
+        }
+        export function inspect(id: string) {
+            return api.get<types.container.exec.ExecJson>(`/exec/${id}/json`)
+        }
+    }
 }

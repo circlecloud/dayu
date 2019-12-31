@@ -50,6 +50,12 @@ POST {{service}}/swirl_swirl/restart
 @id=6365041d2e52c5896dd14a5450920e482dddc33e6addaa07fab413bcda78d723
 GET {{container}}/{{id}}/logs
 
+### Config
+@config={{url}}/configs
+
+##### Config
+GET {{config}}/
+
 ### Dashboard
 @dashboard={{url}}/dashboard
 

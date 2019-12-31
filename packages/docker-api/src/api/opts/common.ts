@@ -1,5 +1,5 @@
 export declare namespace query {
-    export interface FilterOpt {
+    export interface Filter<T = any> {
         filters?: string;
     }
     export interface LabelOpt {

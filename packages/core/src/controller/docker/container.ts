@@ -1,10 +1,10 @@
 import * as docker from '@dayu/docker-api'
 import { io, interfaces, namespace, listener, Message } from '@cc-server/ws'
-import { controller, httpGet, requestParam } from '@cc-server/binding'
+import { controller, get, post, requestParam } from '@cc-server/binding'
 
 @controller('/container')
 class ContainerController {
-    @httpGet('/list')
+    @get('/list')
     public async list() {
         return await docker.container.list({
             filters: JSON.stringify({
@@ -12,7 +12,21 @@ class ContainerController {
             })
         });
     }
-    @httpGet('/:id')
+    @get('/:id')
+    public async info(@requestParam('id') id: string) {
+        return await docker.container;
+    }
+}
+
+@controller('/exec')
+class ContainerExecController {
+    @post('/:id')
+    public async create(@requestParam('id') id: string) {
+        return await docker.container.exec.create(id, {
+
+        })
+    }
+    @get('/:id')
     public async info(@requestParam('id') id: string) {
         return await docker.container;
     }

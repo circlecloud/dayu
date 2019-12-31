@@ -1,11 +1,6 @@
+import { Version, Labels, Meta } from '../common'
+
 export declare namespace swarm {
-    export interface Version {
-        Index: number;
-    }
-
-    export interface Labels {
-    }
-
     export interface Orchestration {
         TaskHistoryRetentionLimit?: number;
     }
@@ -55,11 +50,8 @@ export declare namespace swarm {
         Manager: string;
     }
 
-    export interface Info {
+    export interface Info extends Meta {
         ID: string;
-        Version: Version;
-        CreatedAt: string;
-        UpdatedAt: string;
         Spec: Spec;
         TLSInfo: TLSInfo;
         RootRotationInProgress: boolean;
