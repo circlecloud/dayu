@@ -1,5 +1,6 @@
+import docker from '@dayu/docker-api'
+import { namespace, listener, interfaces, io, Message } from '@cc-server/ws'
 import { controller, post, get, requestParam, queryParam } from '@cc-server/binding';
-import * as docker from '@dayu/docker-api'
 
 @controller('/task')
 class TaskController {
@@ -17,5 +18,22 @@ class TaskController {
                 raw: JSON.stringify(s),
             }))
         };
+    }
+}
+
+@namespace("/task")
+class TaskNamespace extends interfaces.Namespace {
+    @listener()
+    async logs(socket: io.Socket, data: any) {
+        try {
+            let stream = await docker.task.logs(data.id, data);
+            this.defer(socket, () => stream.connection.destroy());
+            stream.on('data', (chunk: ArrayBuffer) => {
+                let log = Buffer.from(chunk.slice(8, chunk.byteLength - 1)).toString();
+                socket.send(log);
+            })
+        } catch (ex) {
+            return new Message(ex.message);
+        }
     }
 }

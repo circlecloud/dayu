@@ -1,4 +1,4 @@
-import * as docker from '@dayu/docker-api'
+import  docker from '@dayu/docker-api'
 import { controller, httpGet } from "@cc-server/binding";
 
 const STACK_LABEL = 'com.docker.stack.namespace';
@@ -28,7 +28,7 @@ class DashboardController {
             stacks: Array.from(new Set(stacks)),
             services,
             networks: networks.map(n => n.Name),
-            containers: containers.map(c => c.Names),
+            containers: containers.map(c => c.Names[0].substr(1)),
             images: images.map(i => i.Id),
             volumes: volumes.Volumes.map(v => v.Name)
         }

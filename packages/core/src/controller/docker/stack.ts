@@ -1,5 +1,5 @@
+import docker from '@dayu/docker-api'
 import { controller, get, post, requestParam } from '@cc-server/binding';
-import * as docker from '@dayu/docker-api'
 
 const STACK_LABEL = 'com.docker.stack.namespace';
 
@@ -26,7 +26,7 @@ class StackController {
         }
         return {
             status: 0,
-            data: result
+            data: { rows: result }
         };
     }
 
@@ -49,6 +49,6 @@ class StackController {
 
     @post('/create')
     public async create() {
-        
+
     }
 }

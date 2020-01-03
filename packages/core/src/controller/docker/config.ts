@@ -1,4 +1,4 @@
-import * as docker from '@dayu/docker-api'
+import docker from '@dayu/docker-api'
 import { controller, get, requestParam } from '@cc-server/binding'
 
 @controller('/config')

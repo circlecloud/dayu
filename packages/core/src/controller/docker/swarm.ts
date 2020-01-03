@@ -1,5 +1,5 @@
+import docker from '@dayu/docker-api'
 import { controller, httpGet, httpPost } from 'inversify-express-utils';
-import * as docker from '@dayu/docker-api'
 
 @controller('/swarm')
 class SwarmController {

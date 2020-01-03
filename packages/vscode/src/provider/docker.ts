@@ -13,6 +13,8 @@ enum Type {
     NETWORK = "NETWORK",
     STACKS = "STACKS",
     STACK = "STACK",
+    TASKS = "TASKS",
+    TASK = "TASK",
     NODES = "NODES",
     NODE = "NODE"
 }
@@ -26,6 +28,11 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
     constructor(context: vscode.ExtensionContext) {
         super();
         context.subscriptions.push(
+            vscode.commands.registerCommand('dayu.task.logs', (item: vscode.TreeItem) => {
+                let value: ItemContextValue = JSON.parse(item.contextValue);
+                let url = `https://dayu-api.miaowoo.cc/logs/?action=task&data=${value.data.id}`;
+                return vscode.commands.executeCommand("mini-browser.openUrl", url);
+            }),
             vscode.commands.registerCommand('dayu.container.logs', (item: vscode.TreeItem) => {
                 let value: ItemContextValue = JSON.parse(item.contextValue);
                 let url = `https://dayu-api.miaowoo.cc/logs/?action=container&data=${value.data.id}`;
@@ -70,6 +77,20 @@ export class DockerProvider extends BaseProvider<vscode.TreeItem> {
             case Type.NODES:
                 let nodes = await docker.node.list();
                 return nodes.map(n => {
+                    return this.createTreeItem({
+                        label: n.ID,
+                        context: {
+                            type: Type.NODE,
+                            data: {
+                                id: n.ID
+                            }
+                        },
+                        tooltip: JSON.stringify(n, undefined, 2)
+                    })
+                })
+            case Type.TASKS:
+                let tasks = await docker.task.list();
+                return tasks.map(n => {
                     return this.createTreeItem({
                         label: n.ID,
                         context: {

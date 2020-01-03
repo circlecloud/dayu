@@ -10,8 +10,8 @@ import * as path from 'path'
 // process.env.DOCKER_HOST = '/var/run/docker.sock'
 // process.env.DOCKER_HOST = 'https://dscli.miaowoo.cc'
 // process.env.DOCKER_HOST = 'http://172.20.0.90:2378'
-// process.env.DOCKER_HOST = 'https://dcli.yumc.pw'
-process.env.DOCKER_HOST = 'http://172.16.200.12:8376'
+process.env.DOCKER_HOST = 'https://dcli.yumc.pw'
+// process.env.DOCKER_HOST = 'http://172.16.200.12:8376'
 let CC_MONGO_URL = process.env.CC_MONGO_URL
 let CC_MONGO_DB = process.env.CC_MONGO_DB
 // if (process.env.local) {

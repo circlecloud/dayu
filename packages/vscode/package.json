@@ -34,6 +34,13 @@
         },
         "commands": [
             {
+                "command": "dayu.task.logs",
+                "title": "View Task Logs",
+                "icon": {
+                    "dark": "src/images/browser.svg"
+                }
+            },
+            {
                 "command": "dayu.container.logs",
                 "title": "View Container Logs",
                 "icon": {
@@ -53,6 +60,11 @@
                 {
                     "command": "dayu.container.logs",
                     "when": "view == docker-explorer && viewItem =~ /.*\"type\":\"CONTAINER\".*/",
+                    "group": "inline"
+                },
+                {
+                    "command": "dayu.task.logs",
+                    "when": "view == docker-explorer && viewItem =~ /.*\"type\":\"TASK\".*/",
                     "group": "inline"
                 },
                 {

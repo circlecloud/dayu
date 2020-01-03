@@ -1,4 +1,4 @@
-import * as docker from '@dayu/docker-api'
+import docker from '@dayu/docker-api'
 import { namespace, listener, interfaces, io, Message } from '@cc-server/ws'
 import { controller, post, get, requestParam, queryParam } from '@cc-server/binding';
 

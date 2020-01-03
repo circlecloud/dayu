@@ -1,5 +1,5 @@
+import docker from '@dayu/docker-api'
 import { controller, get, post, requestParam } from '@cc-server/binding';
-import * as docker from '@dayu/docker-api'
 
 const GROUP_LABEL = 'pw.yumc.group.name'
 
