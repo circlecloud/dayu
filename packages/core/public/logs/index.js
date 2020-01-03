@@ -46,8 +46,9 @@ console.log(query);
 term.writeln(`Recover Action: ${query.action} Data: ${query.data}`)
 
 switch (query.action) {
-    case "container":
+    case "task":
     case "service":
+    case "container":
         connectServer(`/${query.action}`, query.data)
         break;
     default:
