@@ -1,16 +1,18 @@
-import * as api from '../utils/api'
 import * as types from '../api/types'
+import { DockerApiClient } from './api';
 
-export namespace system {
-    export async function info() {
-        return await api.get<types.system.Info>('/info');
+export class System {
+    constructor(public api: DockerApiClient) {
+    }
+    info() {
+        return this.api.get<types.system.Info>('/info');
     }
 
-    export async function version() {
-        return await api.get<types.system.Version>('/version');
+    version() {
+        return this.api.get<types.system.Version>('/version');
     }
 
-    export async function events() {
-        return await api.stream('/events');
+    events() {
+        return this.api.stream('/events');
     }
 }

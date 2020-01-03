@@ -1,29 +1,26 @@
-import * as api from '../utils/api'
 import * as opts from '../api/opts'
 import * as types from '../api/types'
+import { DockerApiClient } from './api';
 
-export namespace swarm {
-    export async function inspect() {
-        return await api.get<types.swarm.Info>('/swarm');
+export class Swarm {
+    constructor(public client: DockerApiClient) {
     }
-
-    export async function init(opts: opts.swarm.InitOpts) {
-        return await api.post<string>('/swarm/init', opts);
+    inspect() {
+        return this.client.get<types.swarm.Info>('/swarm');
     }
-
-    export async function join(opts: opts.swarm.JoinOpts) {
-        return await api.post<string>('/swarm/join', opts);
+    init(opts: opts.swarm.InitOpts) {
+        return this.client.post<string>('/swarm/init', opts);
     }
-
-    export async function leave(force: boolean = false) {
-        return await api.post<string>(`/swarm/leave?force=${force}`);
+    join(opts: opts.swarm.JoinOpts) {
+        return this.client.post<string>('/swarm/join', opts);
     }
-
-    export async function unlockkey() {
-        return await api.get<string>(`/swarm/unlockkey`);
+    leave(force: boolean = false) {
+        return this.client.post<string>(`/swarm/leave?force=${force}`);
     }
-
-    export async function unlock(opts: opts.swarm.UnlockOpts) {
-        return await api.post<string>(`/swarm/unlockkey`, opts);
+    unlockkey() {
+        return this.client.get<string>(`/swarm/unlockkey`);
+    }
+    unlock(opts: opts.swarm.UnlockOpts) {
+        return this.client.post<string>(`/swarm/unlockkey`, opts);
     }
 }

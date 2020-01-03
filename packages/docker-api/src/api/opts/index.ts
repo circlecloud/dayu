@@ -1,3 +1,4 @@
+export * from './task'
 export * from './swarm'
 export * from './common'
 export * from './config'

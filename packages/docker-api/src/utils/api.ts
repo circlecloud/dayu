@@ -1,5 +1,5 @@
 import * as http from 'http'
-import axios, { AxiosResponse, AxiosRequestConfig, Method, AxiosInstance } from 'axios'
+import { AxiosResponse, AxiosRequestConfig, Method, AxiosInstance } from 'axios'
 
 let api: AxiosInstance;
 
@@ -66,19 +66,3 @@ HANDLE   TIME   : ${Date.now() - startTime}ms
         }
     }
 }
-
-function init() {
-    const instanceConfig: AxiosRequestConfig = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    if (process.env.DOCKER_HOST.startsWith("/")) {
-        instanceConfig.socketPath = process.env.DOCKER_HOST
-    } else {
-        instanceConfig.baseURL = process.env.DOCKER_HOST
-    }
-    api = axios.create(instanceConfig)
-}
-
-init();

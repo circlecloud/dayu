@@ -1,8 +1,10 @@
-import * as api from '../utils/api'
 import * as types from '../api/types'
+import { DockerApiClient } from './api';
 
-export namespace image {
-    export async function list() {
-        return await api.get<types.image.Image[]>('/images/json');
+export class Image {
+    constructor(public api: DockerApiClient) {
+    }
+    list() {
+        return this.api.get<types.image.Image[]>('/images/json');
     }
 }

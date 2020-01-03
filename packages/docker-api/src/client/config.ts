@@ -1,18 +1,20 @@
-import * as api from '../utils/api'
 import * as opts from '../api/opts'
 import * as types from '../api/types'
 import * as filterUtil from '../api/opts/filter'
+import { DockerApiClient } from './api';
 
-export namespace config {
-    export async function list(filter?: opts.config.FilterOpt) {
-        return await api.get<types.config.Config[]>('/configs', {
+export class Config {
+    constructor(public api: DockerApiClient) {
+    }
+    list(filter?: opts.config.FilterOpt) {
+        return this.api.get<types.config.Config[]>('/configs', {
             filters: filterUtil.toJSON(filter)
         });
     }
-    export async function inspect(id: string) {
-        return await api.get(`/configs/${id}`)
+    inspect(id: string) {
+        return this.api.get(`/configs/${id}`)
     }
-    export async function create() {
-        return await api.post<{}>('/configs/create')
+    create() {
+        return this.api.post<{}>('/configs/create')
     }
 }

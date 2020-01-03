@@ -1,8 +1,10 @@
-import * as api from '../utils/api'
 import * as types from '../api/types'
+import { DockerApiClient } from './api';
 
-export namespace volume {
-    export async function list() {
-        return await api.get<types.volume.VolumeJSON>('/volumes');
+export class Volume {
+    constructor(public api: DockerApiClient) {
+    }
+    list() {
+        return this.api.get<types.volume.VolumeJSON>('/volumes');
     }
 }

@@ -6,14 +6,7 @@ export declare namespace container {
         limit?: number;
         size?: boolean;
     }
-    export interface LogsOpts {
-        follow?: boolean;
-        stdout?: boolean;
-        stderr?: boolean;
-        since?: number;
-        until?: number;
-        timestamps?: boolean;
-        tail?: number | "all";
+    export interface LogsOpts extends common.LogsOpts {
     }
     export namespace exec {
         export interface Create {

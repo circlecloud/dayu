@@ -1,6 +1,6 @@
 import * as common from './common'
 
-export declare namespace service {
+export declare namespace task {
     export interface FilterOpt {
 
     }
